@@ -31,40 +31,6 @@ class TpDlog extends Dlog implements LogHandlerInterface
 
 
     /**
-     * 记录日志信息
-     * @access public
-     * @param mixed $log_explain | 日志备注
-     * @param mixed $msg | 日志信息
-     * @param string $action | 记录的那个方法
-     * @param string $type | 日志级别
-     * @param array $bothway | RedisLog模式下参数为true时会开启双向写入
-     * @param bool $lazy | false积极模式
-     * @return $this
-     */
-    public function record($log_explain, $msg, $action = '', $type = 'info', $bothway = false, $lazy = true)
-    {
-        if (!empty($msg) || 0 === $msg) {
-            $this->EnLog([
-                'action' => $action,
-                'log_explain' => $log_explain,
-                'msg' => $msg,
-                'level' => $type,
-            ]);
-        }
-
-        if ($bothway && self::$Config['type'] == 'REDISLOG') {
-            $logType = self::$Config['redis_log']['type'];
-            self::$logType([end(static::$log[static::$Model])]);
-        }
-
-        if (!$this->lazy || !$lazy) {
-            $this->save();
-        }
-        return true;
-    }
-
-
-    /**
      * 保存日志
      * @return bool
      */
