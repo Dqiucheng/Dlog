@@ -42,14 +42,12 @@ class Dlog extends Base
      */
     public function record($log_explain, $msg, $action = '', $type = 'info', $bothway = false, $lazy = true)
     {
-        if (!empty($msg) || 0 === $msg) {
-            $this->EnLog([
-                'action' => $action,
-                'log_explain' => $log_explain,
-                'msg' => $msg,
-                'level' => $type,
-            ]);
-        }
+        $this->EnLog([
+            'action' => $action,
+            'log_explain' => $log_explain,
+            'msg' => $msg,
+            'level' => $type,
+        ]);
 
         if ($bothway && self::$Config['write_type'] == 'REDISLOG') {
             $logType = self::$Config['redis_log']['write_type'];
@@ -100,7 +98,7 @@ class Dlog extends Base
      */
     public function emergency($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -117,7 +115,7 @@ class Dlog extends Base
      */
     public function alert($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -133,7 +131,7 @@ class Dlog extends Base
      */
     public function critical($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -148,7 +146,7 @@ class Dlog extends Base
      */
     public function error($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -165,7 +163,7 @@ class Dlog extends Base
      */
     public function warning($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -179,7 +177,7 @@ class Dlog extends Base
      */
     public function notice($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -195,7 +193,7 @@ class Dlog extends Base
      */
     public function info($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -209,7 +207,7 @@ class Dlog extends Base
      */
     public function debug($message)
     {
-       return $this->log(__FUNCTION__, $message);
+        return $this->log(__FUNCTION__, $message);
     }
 
 
@@ -303,7 +301,7 @@ class Dlog extends Base
 
     public function __call($method, $parameters)
     {
-       return $this->log($method, $parameters);
+        return $this->log($method, $parameters);
     }
 
 }

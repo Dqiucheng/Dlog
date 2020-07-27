@@ -1,6 +1,6 @@
 <?php
 include_once 'Dlog.php';
-$log = new DLog\DLog('API');
+$log = new Dlog\Dlog('API');
 
 $log->logs('测试' , ['aa' => 'aaaa', 'bbbb' => '内容']);
 $log->logs('测试qq' , ['aa' => 'aaaa', 'bbbb' => '内容qq']);
