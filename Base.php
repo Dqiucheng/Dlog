@@ -109,7 +109,7 @@ class Base
     public function endSave()
     {
         $endkey = count(static::$log[static::$Model]) - 1;
-        static::$log[static::$Model][$endkey]['end'] = 1;
+        static::$log[static::$Model][$endkey]['end'] = '1';
         if (!self::$Config['is_timeline'])
             static::$log[static::$Model][$endkey]['RunTime'] = number_format(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6);
         return $this->save();
