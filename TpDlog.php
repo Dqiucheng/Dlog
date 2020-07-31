@@ -38,7 +38,7 @@ class TpDlog extends Dlog implements LogHandlerInterface
     {
         if (!empty($log)) {
             foreach ($log as $k => $arr) {
-                static::$Model = $k;
+                $this->Model = $k;
                 foreach ($arr as $kk => $vv) {
                     $this->EnLog([
                         'log_explain' => '',

@@ -22,10 +22,10 @@ class Dlog extends Base
      */
     function __construct($Model = 'default', $RedisObj = null)
     {
+        $this->Model = $Model;
         if (empty(self::$GroupId)) {
             $this->Run($RedisObj);
         }
-        static::$Model = $Model;
     }
 
 
@@ -51,7 +51,7 @@ class Dlog extends Base
 
         if ($bothway && self::$Config['write_type'] == 'REDISLOG') {
             $logType = self::$Config['redis_log']['write_type'];
-            self::$logType([end(static::$log[static::$Model])]);
+            self::$logType([end(static::$log[$this->Model])]);
         }
 
         if (!$this->lazy || !$lazy) {

@@ -24,7 +24,7 @@ class Base
     protected static $Config;
     protected static $GroupId;
     protected static $Absolute;
-    public static $Model;
+    public $Model;
 
 
     protected function Run($RedisObj)
@@ -82,7 +82,7 @@ class Base
             $length = 0;
         }
         $data['groupid'] = self::$GroupId;
-        $data['model'] = static::$Model;
+        $data['model'] = $this->Model;
         if (empty($data['action'])) {
             $data['action'] = $_SERVER['REQUEST_URI'];
         }
@@ -108,10 +108,22 @@ class Base
      */
     public function endSave()
     {
-        $endkey = count(static::$log[static::$Model]) - 1;
-        static::$log[static::$Model][$endkey]['end'] = '1';
+        $last_err = error_get_last();
+        if ($last_err) {
+            $this->EnLog([
+                'action' => '',
+                'log_explain' => '',
+                'msg' => $last_err['message'] . "[ file：{$last_err['file']} ]",
+                'level' => 'error',
+            ]);
+        }
+
+        end(static::$log);
+        $key = key(static::$log);
+        $endkey = count(static::$log[$key]) - 1;
+        static::$log[$key][$endkey]['end'] = '1';
         if (!self::$Config['is_timeline'])
-            static::$log[static::$Model][$endkey]['RunTime'] = number_format(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6);
+            static::$log[$key][$endkey]['RunTime'] = number_format(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6);
         return $this->save();
     }
 
