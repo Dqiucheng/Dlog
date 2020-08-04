@@ -17,6 +17,7 @@ return [
     'dlog_file' => '',        //日志目录调整，由于各框架的性质不同，请根据实际情况调整，可调用DlogFile方法查看日志目录
     'is_timeline' => false,        //是否记录时间轴 true开启
     'realtime_write' => false,        //是否实时写入
+    'show_error_msg' => false,  //是否捕获错误信息
     'redis_log' => [
         'prefix' => 'log:',     //前缀，不可更改
         'host' => '',           //默认

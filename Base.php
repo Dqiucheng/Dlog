@@ -108,15 +108,19 @@ class Base
      */
     public function endSave()
     {
-        $last_err = error_get_last();
-        if ($last_err) {
-            $this->EnLog([
-                'action' => '',
-                'log_explain' => '',
-                'msg' => $last_err['message'] . "[ file：{$last_err['file']} ]",
-                'level' => 'error',
-            ]);
+        if (!empty(self::$Config['show_error_msg'])) {
+            $last_err = error_get_last();
+            if ($last_err) {
+                $this->Model = "error";
+                $this->EnLog([
+                    'action' => '',
+                    'log_explain' => '',
+                    'msg' => $last_err['message'] . "[ file：{$last_err['file']} ]",
+                    'level' => 'error',
+                ]);
+            }
         }
+
 
         end(static::$log);
         $key = key(static::$log);
