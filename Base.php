@@ -68,7 +68,7 @@ class Base
 
     private function shutdown()
     {
-        $CLASS = __CLASS__;
+        $CLASS = '\\' . __CLASS__;
         register_shutdown_function([new $CLASS, 'endSave']);
     }
 
@@ -121,13 +121,15 @@ class Base
             }
         }
 
+        if (empty(static::$log)) return true;
 
         end(static::$log);
         $key = key(static::$log);
         $endkey = count(static::$log[$key]) - 1;
         static::$log[$key][$endkey]['end'] = '1';
-        if (!self::$Config['is_timeline'])
+        if (!self::$Config['is_timeline']) {
             static::$log[$key][$endkey]['RunTime'] = number_format(microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'], 6);
+        }
         return $this->save();
     }
 
