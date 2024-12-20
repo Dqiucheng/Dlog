@@ -232,7 +232,7 @@ class Dlog extends Base
      */
     public function getLog($m = '')
     {
-        return empty($m) ? $this->log : $this->log[$m];
+        return empty($m) ? static::$log : static::$log[$m];
     }
 
 
